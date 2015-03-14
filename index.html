@@ -65,14 +65,27 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script>
     var socket = io();
+    var user = {};
 
+    // hide chat at first and show the user info modal
     $("#chat").hide();
-
     $(window).load(function(){
         $('#modal-user-info').modal('show');
     });
 
-    $("#start-chat");
+    // when the user joins the chat, save their info and display the chat
+    $("#start-chat").click(function(event) {
+      /* Act on the event */
+      user.name = $("#user-name").val();
+      user.emotion = $("#user-emotion").val();
+      console.log(user);
+
+      socket.emit('update-user-info', user);
+
+      if ($("#chat").css("display") === "none") {
+        $("#chat").show();
+      }
+    });
 
     $('form').submit(function(){
       socket.emit('chat message', $('#m').val());

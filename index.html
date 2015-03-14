@@ -2,28 +2,77 @@
 <html>
   <head>
     <title>Socket.IO chat</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
     <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
+/*      * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
       form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
       form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
+      #messages li:nth-child(odd) { background: #eee; }*/
     </style>
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+    <div id="chat">  
+      <ul id="messages"></ul>
+      <form action="">
+        <input id="m" autocomplete="off" /><button>Send</button>
+      </form>
+    </div>
+
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-user-info">
+      Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-user-info" tabindex="-1" role="dialog" aria-labelledby="modal-user-name-lable" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="modal-user-name-lable">Get started!</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="user-name" class="control-label">My name:</label>
+                <input type="text" class="form-control" id="user-name" placeholder="Clint Eastwood">
+              </div>
+              <div class="form-group">
+                <label for="user-emotion" class="control-label">My feels:</label>
+                <input type="text" class="form-control" id="user-emotion" placeholder="Lucky"></input>
+              </div>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="start-chat">Start chatting</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
+
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script>
     var socket = io();
+
+    $("#chat").hide();
+
+    $(window).load(function(){
+        $('#modal-user-info').modal('show');
+    });
+
+    $("#start-chat");
 
     $('form').submit(function(){
       socket.emit('chat message', $('#m').val());
@@ -37,8 +86,9 @@
 
     socket.on('new-connection', function(msg) {
       $('#messages').append($('<li>').text(msg));
-      var name = prompt("Name please ^^");
-      socket.emit("register-name", name);
+      //var name = prompt("Name please ^^");
+      //$("#chat").show();
+      //socket.emit("register-name", name);
     });
 
     socket.on('new-disconnection', function(msg) {

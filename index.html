@@ -84,7 +84,7 @@
     $("#start-chat").click(function(event) {
       // Add info from the form to the user object
       user.name = $("#user-name").val();
-      user.emotion = $("#user-emotion").val();
+      user.emotion = $("#user-emotion").val().toLowerCase();
       // Emit an event and pass the user object
       socket.emit('update-user-info', user);
 

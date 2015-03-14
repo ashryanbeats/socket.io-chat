@@ -117,5 +117,11 @@
       $('#messages').append($('<li>').text(msg));
     });
 
+    $("#modal-user-info").keyup(function(event) {
+      if(event.keyCode === 13) {
+        $("#start-chat").click();
+      }
+    });
+
   </script>
 </html>

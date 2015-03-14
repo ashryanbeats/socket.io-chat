@@ -12,6 +12,7 @@ io.on('connection', function(socket) {
 
 	console.log(msgNewConnection);
 	io.emit('new-connection', msgNewConnection);
+	console.log(socket.id);
 	
 	
 	socket.on('disconnect', function(){

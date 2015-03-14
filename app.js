@@ -20,7 +20,7 @@ io.on('connection', function(socket) {
         io.emit('new-disconnection', msgNewDissconnection);
       }
     	console.log('User disconnected: ', userId);
-      
+
       // Delete the user from the people object
       delete people[userId];
 
@@ -69,9 +69,13 @@ io.on('connection', function(socket) {
     console.log(people);
 	});
   	
-	socket.on('chat message', function(msg) {
-		console.log("message: " + msg);
-		io.emit('chat message', msg);
+	socket.on('chat message', function(messageObject) {
+		//console.log("message: " + msg);
+    var nameObject = {};
+    nameObject.name = people[messageObject.userId].name;
+    nameObject.message = messageObject.message;
+
+		io.emit('chat message', nameObject);
 	});
 });
 

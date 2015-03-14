@@ -94,24 +94,28 @@
       }
     });
 
-    // Submitting chat messages
+    // Submitting chat messages, they first go up to the server
     $('form').submit(function(){
-      socket.emit('chat message', $('#m').val());
+      var messageObject = {};
+      var message = $('#m').val();
+      messageObject.userId = userId;
+      messageObject.message = message;
+
+      socket.emit('chat message', messageObject);
       $('#m').val('');
       return false;
     });
 
-    socket.on('chat message', function(msg) {
-      $('#messages').append($('<li>').text(msg));
+    // Receiving messages, they all come down from the server
+    socket.on('chat message', function(nameObject) {
+
+      $('#messages').append($('<li>').text(nameObject.name + ": " + nameObject.message));
     });
 
     socket.on('new-connection', function(msg) {
       if (msg !== null) {
         $('#messages').append($('<li>').text(msg));
       }
-      //var name = prompt("Name please ^^");
-      //$("#chat").show();
-      //socket.emit("register-name", name);
     });
 
     socket.on('new-disconnection', function(msg) {

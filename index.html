@@ -83,8 +83,8 @@
     // when the user joins the chat, save their info and display the chat
     $("#start-chat").click(function(event) {
       // Add info from the form to the user object
-      user.name = $("#user-name").val();
-      user.emotion = $("#user-emotion").val().toLowerCase();
+      user.name = $("#user-name").val().trim();
+      user.emotion = $("#user-emotion").val().toLowerCase().trim();
       // Emit an event and pass the user object
       socket.emit('update-user-info', user);
 
@@ -94,6 +94,7 @@
       }
     });
 
+    // Submitting chat messages
     $('form').submit(function(){
       socket.emit('chat message', $('#m').val());
       $('#m').val('');

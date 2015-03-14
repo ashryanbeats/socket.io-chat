@@ -35,5 +35,8 @@
     socket.on('new-connection', function(msg) {
       $('#messages').append($('<li>').text(msg));
     });
+    socket.on('new-disconnection', function(msg) {
+      $('#messages').append($('<li>').text(msg));
+    });
   </script>
 </html>

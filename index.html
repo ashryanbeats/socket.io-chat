@@ -76,7 +76,9 @@
 
     // Get the user's session id from the server
     socket.on('client-register-id', function(theUserId) {
-      userId = theUserId;
+      if (!userId) {
+        userId = theUserId;        
+      }
       console.log("My user id: " + userId);
     });
 
@@ -109,7 +111,7 @@
     // Receiving messages, they all come down from the server
     socket.on('chat message', function(nameObject) {
 
-      $('#messages').append($('<li>').text(nameObject.name + ": " + nameObject.message));
+      $('#messages').append($('<li>' + '<strong>' + nameObject.name + '</strong>' + ": " + nameObject.message + '</li>'));
     });
 
     socket.on('new-connection', function(msg) {

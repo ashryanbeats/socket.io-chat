@@ -70,11 +70,17 @@ io.on('connection', function(socket) {
 	});
   	
 	socket.on('chat message', function(messageObject) {
-		//console.log("message: " + msg);
+    console.log("Message object is: ");
+    console.log(messageObject);
+
     var nameObject = {};
     nameObject.name = people[messageObject.userId].name;
     nameObject.message = messageObject.message;
+    
 
+    console.log("Name object is: ");
+    console.log(nameObject);
+    
 		io.emit('chat message', nameObject);
 	});
 });

@@ -10,14 +10,20 @@ app.get('/', function(req, res) {
 
 io.on('connection', function(socket) {
   var userId = socket.id;
-	var msgNewDissconnection = 'Someone disconnected ; ;';
 	
   io.emit('client-register-id', userId);
 	
 	socket.on('disconnect', function(){
-    	console.log('user disconnected', userId);
-    	io.emit('new-disconnection', msgNewDissconnection);
-      delete people[socket.id];
+      // if the user id exists
+      if (people[userId]) {
+        var msgNewDissconnection = people[userId].name + ' disconnected ; ;';
+        io.emit('new-disconnection', msgNewDissconnection);
+      }
+    	console.log('User disconnected: ', userId);
+      
+      // Delete the user from the people object
+      delete people[userId];
+
       console.log("People logged in after user disconnect");
       console.log(people);
   });

@@ -66,6 +66,7 @@
   <script>
     var socket = io();
     var user = {};
+    var userId = "";
 
     // hide chat at first and show the user info modal
     $("#chat").hide();
@@ -73,15 +74,21 @@
         $('#modal-user-info').modal('show');
     });
 
+    // Get the user's session id from the server
+    socket.on('client-register-id', function(theUserId) {
+      userId = theUserId;
+      console.log("My user id: " + userId);
+    });
+
     // when the user joins the chat, save their info and display the chat
     $("#start-chat").click(function(event) {
-      /* Act on the event */
+      // Add info from the form to the user object
       user.name = $("#user-name").val();
       user.emotion = $("#user-emotion").val();
-      console.log(user);
-
+      // Emit an event and pass the user object
       socket.emit('update-user-info', user);
 
+      // Show the chat window
       if ($("#chat").css("display") === "none") {
         $("#chat").show();
       }

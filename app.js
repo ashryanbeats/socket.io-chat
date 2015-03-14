@@ -9,6 +9,7 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket) {
 	var msgNewConnection = 'A new user connected!';
 	var msgNewDissconnection = 'Someone disconnected ; ;';
+	var people = {};
 
 	console.log(msgNewConnection);
 	io.emit('new-connection', msgNewConnection);
@@ -18,6 +19,11 @@ io.on('connection', function(socket) {
 	socket.on('disconnect', function(){
     	console.log('user disconnected');
     	io.emit('new-disconnection', msgNewDissconnection);
+  	});
+
+  	socket.on('register-name', function(name) {
+  		people[socket.id] = name;
+  		console.log(people);
   	});
   	
   	socket.on('chat message', function(msg) {

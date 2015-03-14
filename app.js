@@ -18,8 +18,11 @@ io.on('connection', function(socket) {
 	
 	
 	socket.on('disconnect', function(){
-    	console.log('user disconnected');
+    	console.log('user disconnected', socket.id);
     	io.emit('new-disconnection', msgNewDissconnection);
+      delete people[socket.id];
+      console.log("People logged in after user disconnect");
+      console.log(people);
   });
 
 	socket.on('update-user-info', function(user) {

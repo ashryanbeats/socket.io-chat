@@ -3,31 +3,63 @@
   <head>
     <title>Socket.IO chat</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+      <style type="text/css">
+        #chat-bar {
+          background: #555;
+          padding: 5px;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+        }
 
-    <style>
-/*      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }*/
+        #chat-bar input {
+          border: 0;
+          padding: 10px;
+          width: 79.2%;
+          margin-right: .5%;
+        }
+
+        #chat-bar button { 
+          width: 9%;
+          margin-right: .7%; 
+          background: rgb(130, 224, 255); 
+          border: none; 
+          padding: 10px; 
+        }
+
+        #messages { 
+          list-style-type: none; 
+          margin-left: 10px;
+          margin-right: 10px; 
+          padding: 0; 
+        }
+
+        #messages li { 
+          padding: 5px 10px; 
+        }
+
+        #messages li:nth-child(odd) { 
+          background: #eee; 
+        }
+
     </style>
+
   </head>
+
+
   <body>
     <div id="chat">  
       <ul id="messages"></ul>
-      <form action="">
-        <input id="m" autocomplete="off" /><button>Send</button>
+      <form action="" id="chat-bar">
+        <input id="m" autocomplete="off" />
+        <button>Send</button>
+        <!-- Button trigger modal -->
+        <button id="set-info" type="button" class="" data-toggle="modal" data-target="#modal-user-info">Set info</button>
       </form>
     </div>
 
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-user-info">
-      Launch demo modal
-    </button>
+    
 
     <!-- Modal -->
     <div class="modal fade" id="modal-user-info" tabindex="-1" role="dialog" aria-labelledby="modal-user-name-lable" aria-hidden="true">
@@ -41,7 +73,7 @@
             <form>
               <div class="form-group">
                 <label for="user-name" class="control-label">My name:</label>
-                <input type="text" class="form-control" id="user-name" placeholder="Clint Eastwood">
+                <input type="text" class="form-control" id="user-name" placeholder="Clint Eastwood" autofocus>
               </div>
               <div class="form-group">
                 <label for="user-emotion" class="control-label">My feels:</label>
@@ -116,7 +148,7 @@
 
     socket.on('new-connection', function(msg) {
       if (msg !== null) {
-        $('#messages').append($('<li>').text(msg));
+        $('#messages').append($('<li>' + '<em>' + msg + '</em>' + '</li>'));
       }
     });
 

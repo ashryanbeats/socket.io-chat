@@ -8,6 +8,11 @@ app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
 });
 
+// app.configure(function() {
+//   app.use(app.static(__dirname + '/styles'));
+//   app.use(app.static(__dirname + '/scripts'));
+// });
+
 io.on('connection', function(socket) {
   var userId = socket.id;
 	

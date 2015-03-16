@@ -1,7 +1,17 @@
-$(document).ready(function() {
-  var socket = io();
-  var user = {};
-  var userId = "";
+var socket = io();
+var user = {};
+var userId = "";
+
+// hide chat at first and show the user info modal
+$(window).load(function(){
+    $("#chat").hide();
+    $('#modal-user-info').modal('show');
+});
+
+$(document).ready(function(){
+  $("#modal-user-info").on("shown.bs.modal", function() {
+    $("#user-name").focus();
+  });
 
   // Get the user's session id from the server
   socket.on('client-register-id', function(theUserId) {
@@ -45,7 +55,7 @@ $(document).ready(function() {
 
   socket.on('new-connection', function(msg) {
     if (msg !== null) {
-      $('#messages').append($('<li>').text(msg));
+      $('#messages').append($('<li>' + '<em>' + msg + '</em>' + '</li>'));
     }
   });
 

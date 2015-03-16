@@ -1,12 +1,21 @@
 var app = require("express")(); // look this up
+var express = require("express");
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
+var morgan = require("morgan");
+var path = require("path");
 
 var people = {};
+
+app.use(morgan('dev'));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
 });
+
+
 
 // app.configure(function() {
 //   app.use(app.static(__dirname + '/styles'));

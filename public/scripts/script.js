@@ -1,11 +1,12 @@
 var socket = io();
 var user = {};
 var userId = "";
+var height = 0;
 
 // hide chat at first and show the user info modal
-$("#chat").hide();
 $(window).load(function(){
-    $('#modal-user-info').modal('show');
+  $("#chat").hide();
+  $('#modal-user-info').modal('show');
 });
 
 // Get the user's session id from the server
@@ -44,6 +45,12 @@ $('form').submit(function(){
 
 // Receiving messages, they all come down from the server
 socket.on('chat message', function(nameObject) {
+  $("#messages li").each(function(i, value) {
+    height += parseInt($(this).height());
+    console.log("Height: " + height);
+  });
+  //height += "";
+  $("body").scrollTop(height);
 
   $('#messages').append($('<li>' + '<strong>' + nameObject.name + '</strong>' + ": " + nameObject.message + '</li>'));
 });

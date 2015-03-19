@@ -36,3 +36,7 @@
 #messages li:nth-child(odd) { 
   background: #eee; 
 }
+
+.system-message {
+  font-style: italic;
+}

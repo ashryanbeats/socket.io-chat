@@ -65,12 +65,12 @@ socket.on('chat message', function(nameObject) {
 
 socket.on('new-connection', function(msg) {
   scroller();
-  $('#messages').append($('<li>').text(msg));
+  $('#messages').append($('<li class="system-message">').text(msg));
 });
 
 socket.on('new-disconnection', function(msg) {
   scroller();
-  $('#messages').append($('<li>').text(msg));
+  $('#messages').append($('<li class="system-message">').text(msg));
 });
 
 // User return key to submit the modal form

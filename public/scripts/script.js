@@ -7,6 +7,7 @@ var height = 0;
 $(window).load(function(){
   $("#chat").hide();
   $('#modal-user-info').modal('show');
+  //$("").focus
 });
 
 // Get the user's session id from the server
@@ -43,28 +44,36 @@ $('form').submit(function(){
   return false;
 });
 
-// Receiving messages, they all come down from the server
-socket.on('chat message', function(nameObject) {
+
+// Scrolling function to display chat messages that would go below the fold
+function scroller() {
   $("#messages li").each(function(i, value) {
     height += parseInt($(this).height());
     console.log("Height: " + height);
   });
-  //height += "";
+
   $("body").scrollTop(height);
+}
 
-  $('#messages').append($('<li>' + '<strong>' + nameObject.name + '</strong>' + ": " + nameObject.message + '</li>'));
-});
-
-socket.on('new-connection', function(msg) {
-  if (msg !== null) {
-    $('#messages').append($('<li>').text(msg));
+// Receiving messages, they all come down from the server
+socket.on('chat message', function(nameObject) {
+  if (nameObject.message !== "") {
+    scroller();
+    $('#messages').append($('<li>' + '<strong>' + nameObject.name + '</strong>' + ": " + nameObject.message + '</li>'));
   }
 });
 
-socket.on('new-disconnection', function(msg) {
+socket.on('new-connection', function(msg) {
+  scroller();
   $('#messages').append($('<li>').text(msg));
 });
 
+socket.on('new-disconnection', function(msg) {
+  scroller();
+  $('#messages').append($('<li>').text(msg));
+});
+
+// User return key to submit the modal form
 $("#modal-user-info").keyup(function(event) {
   if(event.keyCode === 13) {
     $("#start-chat").click();

@@ -4,23 +4,18 @@ var http = require("http").Server(app);
 var io = require("socket.io")(http);
 var morgan = require("morgan");
 var path = require("path");
+var routes = require('./routes/index');
+var bodyParser = require('body-parser');
 
 var people = {};
 
+
 app.use(morgan('dev'));
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', routes);
 
-app.get('/', function(req, res) {
-	res.sendFile(__dirname + '/index.html');
-});
-
-
-
-// app.configure(function() {
-//   app.use(app.static(__dirname + '/styles'));
-//   app.use(app.static(__dirname + '/scripts'));
-// });
 
 io.on('connection', function(socket) {
   var userId = socket.id;

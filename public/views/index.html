@@ -10,6 +10,8 @@
   <body>
   <div class="container">
     <div id="chat">  
+      <div class="alert alert-success" role="alert" style="float: right">...</div>
+      
       <ul id="messages"></ul>
       <form action="" id="chat-bar">
         <input id="m" autocomplete="off">
@@ -28,7 +30,7 @@
             <h4 class="modal-title" id="modal-user-name-lable">Get started!</h4>
           </div>
           <div class="modal-body">
-            <form>
+            <form method="POST" action="/">
               <div class="form-group">
                 <label for="user-name" class="control-label">My name:</label>
                 <input type="text" class="form-control" id="user-name" placeholder="Clint Eastwood" autofocus>

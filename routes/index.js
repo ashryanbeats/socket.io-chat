@@ -7,17 +7,12 @@ var path = require("path");
 //app.use(express.static(path.join(__dirname, 'public')));
 
 
-router.get('/', function(req, res) {
-	console.log("HERE!, router.get");
-	console.log(req.body);
-	// console.log();
-	// console.log(view);
-	console.log(__dirname + "/../public" + "/views/");
-	res.sendFile(__dirname + "../public" + "/views/");
+router.get('/', function(req, res) {	
+	res.sendFile(path.join(__dirname, '../', 'public/views/index.html'));
 });
 
 router.post("/", function(req, res) {
-	console.log("HERE!");
+	console.log("HERE!, router.post");
 	console.log(req.body);
 });
 

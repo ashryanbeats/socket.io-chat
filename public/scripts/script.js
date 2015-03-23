@@ -26,6 +26,8 @@ $("#start-chat").click(function(event) {
   // Emit an event and pass the user object
   socket.emit('update-user-info', user);
 
+  $.post("/", {name: user.name});
+
   // Show the chat window
   if ($("#chat").css("display") === "none") {
     $("#chat").show();

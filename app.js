@@ -41,6 +41,17 @@ io.on('connection', function(socket) {
     var msgNewConnection;
     var nameChange = false;
     var emotionChange = false;
+    
+
+    // Check if the user exists in the database
+    // If not, create the new user with userName, displayName, and emotion
+    
+
+    // If existing, update the display name and emotion
+
+
+
+
 
     // If the user doesn't exist
     if(people.hasOwnProperty(userId) === false) {
@@ -48,6 +59,8 @@ io.on('connection', function(socket) {
       people[userId] = user;
       msgNewConnection = people[userId].name + ' connected and is feeling ' + people[userId].emotion + "!";
     }
+
+
     // Else find out what has changed
     else {
       if (people[userId].name !== user.name) {

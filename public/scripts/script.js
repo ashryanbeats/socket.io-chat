@@ -24,10 +24,12 @@ $("#start-chat").click(function(event) {
   user.userName = $("#user-name").val().trim();
   user.displayName = $("#display-name").val().trim();
   user.emotion = $("#user-emotion").val().toLowerCase().trim();
+  
   // Emit an event and pass the user object
   socket.emit('update-user-info', user);
 
-  $.post("/", {userName: user.userName, displayName: user.displayName});
+  // write to the database
+  $.post("/", {userName: user.userName, displayName: user.displayName, emotion: user.emotion});
 
   // Show the chat window
   if ($("#chat").css("display") === "none") {

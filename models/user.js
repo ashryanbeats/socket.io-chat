@@ -8,7 +8,8 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
 	userName: {type: String, required: true},
-	displayName: {type: String, required: true}
+	displayName: {type: String, required: true},
+	emotion: {type: String, required: true}
 });
 
 User = mongoose.model("User", UserSchema);

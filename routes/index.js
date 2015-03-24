@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
 
 router.post("/", function(req, res) {
 	var user = new User({
-		name: req.body.name
+		userName: req.body.name
 	});
 
 	user.save(function(err, user) {

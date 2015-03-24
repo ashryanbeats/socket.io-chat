@@ -7,7 +7,8 @@ var User;
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-	name: {type: String, required: true}
+	userName: {type: String, required: true},
+	displayName: {type: String, required: true}
 });
 
 User = mongoose.model("User", UserSchema);

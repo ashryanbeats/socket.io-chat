@@ -12,8 +12,10 @@ router.get('/', function(req, res) {
 });
 
 router.post("/", function(req, res) {
+	console.log(req.body);
 	var user = new User({
-		userName: req.body.name
+		userName: req.body.userName,
+		displayName: req.body.displayName
 	});
 
 	user.save(function(err, user) {

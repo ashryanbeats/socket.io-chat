@@ -21,12 +21,13 @@ socket.on('client-register-id', function(theUserId) {
 // when the user joins the chat, save their info and display the chat
 $("#start-chat").click(function(event) {
   // Add info from the form to the user object
-  user.name = $("#user-name").val().trim();
+  user.userName = $("#user-name").val().trim();
+  user.displayName = $("#display-name").val().trim();
   user.emotion = $("#user-emotion").val().toLowerCase().trim();
   // Emit an event and pass the user object
   socket.emit('update-user-info', user);
 
-  $.post("/", {name: user.name});
+  $.post("/", {userName: user.userName, displayName: user.displayName});
 
   // Show the chat window
   if ($("#chat").css("display") === "none") {

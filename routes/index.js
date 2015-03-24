@@ -12,8 +12,13 @@ router.get('/', function(req, res) {
 });
 
 router.post("/", function(req, res) {
-	console.log("HERE!, router.post");
-	console.log(req.body);
+	var user = new User({
+		name: req.body.name
+	});
+
+	user.save(function(err, user) {
+		res.redirect("/");
+	});
 });
 
 module.exports = router;
